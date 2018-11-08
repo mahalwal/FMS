@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+
+    >
+    <TableRow
+        android:layout_width="match_parent"
+        >
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:id="@+id/cid"
+            android:text="ID"
+            android:layout_weight="1"
+            android:textSize="14dp"
+            />
+
+        <Spinner
+            android:id="@+id/spinner1"
+            android:layout_width="148dp"
+            android:layout_height="match_parent"
+            android:background="@android:drawable/btn_dropdown"
+            android:padding="10dp"
+            android:spinnerMode="dropdown" />
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:id="@+id/ctype"
+            android:text="Type"
+            android:layout_weight="1"
+            android:textSize="14dp"
+
+            />
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:id="@+id/cpos"
+            android:text="Position"
+            android:layout_weight="1"
+            android:textSize="14dp"
+
+            />
+        <Button
+            android:id="@+id/buttonSignUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="7dp"
+            android:background="@drawable/rounded_button_transparent"
+            android:text="Sign Up"
+            android:textAllCaps="false"
+            android:textColor="@color/colorAccent" />
+    </TableRow>
+</TableLayout>
+

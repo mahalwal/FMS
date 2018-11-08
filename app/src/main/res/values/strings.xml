@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">FMS</string>
+    <string name="title_activity_admin">AdminActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Logout</string>
+    <string name="ndopen">Open navigation drawer</string>
+    <string name="ndclose">Close navigation drawer</string>
+    <string-array name="Building">
+        <item>Old Boys Hostel</item>
+        <item>Old Girls Hostel</item>
+        <item>New Boys Hostel</item>
+        <item>New Academic Building </item>
+        <item>Old Academic Hostel</item>
+        <item>Seminar Block</item>
+        <item>Others</item>
+
+    </string-array>
+    <string-array name="Complaint_Type">
+
+        <item>Room Cleaning</item>
+        <item>AC Servicing</item>
+        <item>Carpenter</item>
+        <item>Electrician</item>
+        <item>Others</item>
+    </string-array>
+</resources>

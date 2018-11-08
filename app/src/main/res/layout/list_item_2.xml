@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    >
+    <TableRow
+        android:layout_width="match_parent"
+        >
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_weight="1"
+            android:id="@+id/cid2"
+            android:text="ID"
+            android:textSize="14dp"
+             />
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_weight="1"
+            android:id="@+id/cworker2"
+            android:text="Worker"
+            android:textSize="14dp"
+
+            />
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_weight="1"
+            android:id="@+id/ctype2"
+            android:text="Type"
+            android:textSize="14dp"
+
+             />
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_weight="1"
+            android:id="@+id/cstatus"
+            android:text="Position"
+            android:textSize="14dp"
+
+             />
+    </TableRow>
+</TableLayout>
