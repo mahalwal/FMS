@@ -1,8 +1,10 @@
 package me.manishmahalwal.android.fms2;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,36 +15,38 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-/**
- * Created by Aj Kamal on 28-09-2018.
- */
+import com.google.android.gms.common.internal.service.CommonApi;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 public class RegisterComplaintStudent extends Fragment {
     public Button B1;
     public EditText E1;
     public EditText E2;
+    public EditText E3;
+
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.fragment_c, container, false);
-        B1= (Button)view.findViewById(R.id.button_submit);
-        E1= (EditText) view.findViewById(R.id.editText);
-        E2= (EditText) view.findViewById(R.id.editText2);
-        //get last complaint id increment it and provide new
-        Spinner spinner = (Spinner)view.findViewById(R.id.spinner2);
+        B1 = (Button)view.findViewById(R.id.button_submit);
+        E1 = (EditText) view.findViewById(R.id.editText);
+        E2 = (EditText) view.findViewById(R.id.editText2);
+        E3 = (EditText) view.findViewById(R.id.editText9);
+        final Spinner spinner = (Spinner)view.findViewById(R.id.spinner2);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),R.array.Complaint_Type,android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setSelection(4);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-        {
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id)
-            {
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 String selected=parentView.getItemAtPosition(position).toString();
-
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent)
-            {
+            public void onNothingSelected(AdapterView<?> parent) {
 
 
             }
@@ -53,18 +57,15 @@ public class RegisterComplaintStudent extends Fragment {
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner2.setAdapter(adapter2);
         spinner2.setSelection(6);
-        spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-        {
+        spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id)
-            {
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 String selected=parentView.getItemAtPosition(position).toString();
 
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent)
-            {
+            public void onNothingSelected(AdapterView<?> parent) {
 
 
             }
@@ -72,31 +73,112 @@ public class RegisterComplaintStudent extends Fragment {
         });
         B1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                String d=E1.getText().toString();
-                String f=E2.getText().toString();
-                /*int ff=Integer.parseInt(f);
-                Map<String, Object> city = new HashMap<>();
-                city.put("Complaint ID",c_id);
-                city.put("Complaint Type", ff);
-                */
-
-//                mdb.child("Pending_Complaint").child("Complaint ID").setValue(1234);
+                final String RoomNum=E1.getText().toString();
+                final String Description=E2.getText().toString();
+                final String Roll_no=E3.getText().toString();
                 Toast.makeText(getContext(),"read",Toast.LENGTH_LONG).show();
+                String ComplaintType = spinner.getSelectedItem().toString();
+                final FirebaseDatabase database = FirebaseDatabase.getInstance();
+                if(ComplaintType.equals("Room Cleaning")){
+
+                    final DatabaseReference myRef = database.getReference("CleanID");
+                    int upd;
+                    myRef.addListenerForSingleValueEvent(new ValueEventListener(){
+                    int val;
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            val = dataSnapshot.getValue(Integer.class);
+                            int upd = val + 1;
+                            myRef.setValue(upd);
+                            final DatabaseReference myRef2 = database.getReference("CleanComplaint").child(upd+"");
+                            Log.e("RegisterComplaint", upd +"");
+                            CleanComplaint ct = new CleanComplaint(val + "", "Room Cleaning", Roll_no," ", RoomNum, -1, Description);
+                            myRef2.setValue(ct);
+                        }
 
 
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
 
+                        }
+                    });
+                }
+                else if(ComplaintType.equals("AC Servicing")){
+                    final DatabaseReference myRef = database.getReference("ACID");
+
+                    int upd;
+                    myRef.addListenerForSingleValueEvent(new ValueEventListener(){
+                        int val;
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            val = dataSnapshot.getValue(Integer.class);
+                            int upd = val + 1;
+                            final DatabaseReference myRef2 = database.getReference("CleanComplaint").child(upd+"");
+                            myRef.setValue(upd);
+                            Log.e("RegisterComplaint", upd +"");
+                            AcComplaint ct = new AcComplaint(val + "", "AC Servicing", Roll_no," ", RoomNum, -1, Description);
+                            myRef2.setValue(ct);
+                        }
+
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+                else if(ComplaintType.equals("Carpenter")){
+                    final DatabaseReference myRef = database.getReference("CarpenterID");
+                    int upd;
+                    myRef.addListenerForSingleValueEvent(new ValueEventListener(){
+                        int val;
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            val = dataSnapshot.getValue(Integer.class);
+                            int upd = val + 1;
+                            final DatabaseReference myRef2 = database.getReference("CleanComplaint").child(upd+"");
+                            myRef.setValue(upd);
+                            CarpentComplaint ct = new CarpentComplaint(val + "", "Carpenter", Roll_no," ", RoomNum, -1, Description);
+                            Log.e("RegisterComplaint", upd +"");
+                            myRef.setValue(ct);
+                        }
+
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+                else{
+                    final DatabaseReference myRef = database.getReference("ElectricID");
+
+                    int upd;
+                    myRef.addListenerForSingleValueEvent(new ValueEventListener(){
+                        int val;
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            val = dataSnapshot.getValue(Integer.class);
+                            int upd = val + 1;
+                            final DatabaseReference myRef2 = database.getReference("CleanComplaint").child(upd+"");
+                            myRef.setValue(upd);
+                            ElectricComplaint ct = new ElectricComplaint(val + "", "Electric", Roll_no," ", RoomNum, -1, Description);
+                            Log.e("RegisterComplaint", upd +"");
+                            myRef2.setValue(ct);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+
+                }
             }
         });
 
-
-
-
         return  view;
 
-
-
     }
-
-
 
 }

@@ -22,19 +22,19 @@ public class AboutStudent extends Fragment {
         myView = inflater.inflate(R.layout.fragment_ab, container, false);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        Log.e("THIS", "STARTED");
+        Log.e("AboutStudent", "STARTED");
         FirebaseDatabase.getInstance().getReference().child("ListOfUser")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         String email = mAuth.getCurrentUser().getEmail();
 
-                        Log.e("THIS", email);
+                        Log.e("AboutStudent", email);
 
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                             String name = snapshot.child("name").getValue().toString();
                             String email_temp = snapshot.child("email").getValue().toString();
-                            String phone = snapshot.child("number").getValue().toString();
+                            String phone = snapshot.child("phoneNumber").getValue().toString();
                             String roll = snapshot.child("rollNo").getValue().toString();
                             String gender = snapshot.child("gender").getValue().toString();
                             if(email_temp.equals(email) == true){
@@ -60,7 +60,7 @@ public class AboutStudent extends Fragment {
                     }
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-                        Log.e("THIS", "NOT POSSIBLE");
+                        Log.e("AboutStudent", "NOT POSSIBLE");
 //                        Toast.makeText(getApplicationContext(), "Maa Chud Gayi", Toast.LENGTH_LONG).show();
 
                     }

@@ -36,15 +36,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        //For Male/female drop-down menu
-        //get the spinner from the xml.
         dropdown = findViewById(R.id.spinner1);
-        //create a list of items for the spinner.
         String[] items = new String[]{"Male", "Female"};
-        //create an adapter to describe how the items are displayed, adapters are used in several places in android.
-        //There are multiple variations of this, but this is the basic variant.
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
-        //set the spinners adapter to the previously created one.
         dropdown.setAdapter(adapter);
 
 
@@ -55,7 +49,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         editTextPhone = findViewById(R.id.editTextPhone);
         editTextRoomNumber = findViewById(R.id.editTextRoomNumber);
 
-
         mAuth = FirebaseAuth.getInstance();
 
         findViewById(R.id.buttonSignUp).setOnClickListener(this);
@@ -64,18 +57,18 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     private void registerUser() {
         String name = editTextName.getText().toString().trim();
-        String email = editTextEmail.getText().toString().trim();
+        final String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
         String phoneNo = editTextPhone.getText().toString().trim();
         String rollNo = editTextRoomNumber.getText().toString().trim();
         String gender=dropdown.getSelectedItem().toString();
 
-        User user = new User(name, email, password, phoneNo, rollNo, "Male");
+        User user = new User(name, email, password, phoneNo, rollNo, gender);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("ListOfUser").child(user.rollNo);
 
         myRef.setValue(user);
-        Log.e("CHECKING", "newUserRegister");
+        Log.e("SignUpActivity", "newUserRegister");
         if (email.isEmpty()) {
             editTextEmail.setError("Email is required");
             editTextEmail.requestFocus();
@@ -118,16 +111,15 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             editTextPassword.requestFocus();
             return;
         }
-        Log.e("CHECKING234", email);
         progressBar.setVisibility(View.VISIBLE);
             mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     progressBar.setVisibility(View.GONE);
                     if (task.isSuccessful()) {
-                        Log.e("CHECKING", "mainActivity");
+                        Log.e("SignUpActivity", "Authentication");
                         finish();
-                        startActivity(new Intent(SignUpActivity.this, MainActivity.class));
+                        startActivity(new Intent(SignUpActivity.this, Student.class));
                     }
                     else {
                         if (task.getException() instanceof FirebaseAuthUserCollisionException) {
