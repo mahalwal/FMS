@@ -36,20 +36,22 @@ public class ComplaintStatusStudent extends Fragment implements EditComplaintSta
             @Override
             public void onClick(View view) {
 
-                EditComplaintStatusStudentDialog dialogFragment = new EditComplaintStatusStudentDialog();
+//                EditComplaintStatusStudentDialog dialogFragment = new EditComplaintStatusStudentDialog();
+//
+//                Bundle bundle = new Bundle();
+//                bundle.putBoolean("notAlertDialog", true);
+//                dialogFragment.setArguments(bundle);
+//
+                Fragment newFragment = new RegisterComplaintStudent();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
-                Bundle bundle = new Bundle();
-                bundle.putBoolean("notAlertDialog", true);
-                dialogFragment.setArguments(bundle);
+                // Replace whatever is in the fragment_container view with this fragment,
+                // and add the transaction to the back stack if needed
+                transaction.replace(R.id.fragment_container, newFragment);
+                transaction.addToBackStack(null);
 
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                Fragment prev = getFragmentManager().findFragmentByTag("dialog");
-                if (prev != null) {
-                    ft.remove(prev);
-                }
-                ft.addToBackStack(null);
-
-                dialogFragment.show(ft, "dialog");
+                // Commit the transaction
+                transaction.commit();
 
             }
         });

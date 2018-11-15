@@ -18,7 +18,7 @@ import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-public class EditComplaintStatusStudentDialog extends DialogFragment {
+public class EditCompletedComplaintStatusStudentDialog extends DialogFragment {
 
     @NonNull
     @Override
@@ -56,8 +56,8 @@ public class EditComplaintStatusStudentDialog extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        getDialog().setTitle("Complaint Info");
-        return inflater.inflate(R.layout.edit_complaint_dialog, container, false);
+        getDialog().setTitle("Complaint Feedback");
+        return inflater.inflate(R.layout.edit_completed_complaint_dialog, container, false);
 
     }
 
@@ -65,9 +65,26 @@ public class EditComplaintStatusStudentDialog extends DialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-//        final RatingBar rate=view.findViewById(R.id.ratingBar);
-//        final float[] rate_value = {0};
-//        final TextView rc=view.findViewById(R.id.rate_value);
+
+
+
+        Button btnDone = view.findViewById(R.id.btnDone);
+        btnDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                //dismissing the dialog when done is pressed
+                Fragment prev = getFragmentManager().findFragmentByTag("dialog");
+                if (prev != null) {
+                    DialogFragment df = (DialogFragment) prev;
+                    df.dismiss();
+                }
+
+            }
+        });
+        final RatingBar rate=view.findViewById(R.id.ratingBar);
+        final float[] rate_value = {0};
+        final TextView rc=view.findViewById(R.id.rate_value);
 //        Button s_rate=view.findViewById(R.id.submit_rating);
 //        Button cancel=view.findViewById(R.id.Cancel_rating);
 //        s_rate.setOnClickListener(new View.OnClickListener() {
@@ -82,7 +99,13 @@ public class EditComplaintStatusStudentDialog extends DialogFragment {
 //
 //            }
 //        });
-
+        rate.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                rate_value[0] =rate.getRating();
+                rc.setText("You Rated-"+rate_value[0]);
+            }
+        });
     }
 
     @Override

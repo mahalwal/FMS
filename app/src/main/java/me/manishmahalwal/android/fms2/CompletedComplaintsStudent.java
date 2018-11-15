@@ -2,16 +2,20 @@ package me.manishmahalwal.android.fms2;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CompletedComplaintsStudent extends Fragment {
+public class CompletedComplaintsStudent extends Fragment implements EditCompletedComplaintStatusStudentDialog.DialogListener{
 
     List<ObjComplaintStatusStudent> objComplaintStatusList;
 
@@ -57,6 +61,58 @@ public class CompletedComplaintsStudent extends Fragment {
         //setting adapter to recyclerview
         recyclerView.setAdapter(adapter);
 
+        recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+            GestureDetector gestureDetector = new GestureDetector(getActivity(), new GestureDetector.SimpleOnGestureListener() {
+
+                @Override public boolean onSingleTapUp(MotionEvent e) {
+                    return true;
+                }
+
+            });
+            @Override
+            public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+
+                View child = rv.findChildViewUnder(e.getX(), e.getY());
+                if(child != null && gestureDetector.onTouchEvent(e)) {
+
+
+                    int position = rv.getChildAdapterPosition(child);
+                    Toast.makeText(getActivity(), Integer.toString(position), Toast.LENGTH_SHORT).show();
+
+                    EditCompletedComplaintStatusStudentDialog dialogFragment = new EditCompletedComplaintStatusStudentDialog();
+
+                    Bundle bundle = new Bundle();
+                    bundle.putBoolean("notAlertDialog", true);
+
+                    dialogFragment.setArguments(bundle);
+
+                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+                    Fragment prev = getFragmentManager().findFragmentByTag("dialog");
+                    if (prev != null) {
+                        ft.remove(prev);
+                    }
+                    ft.addToBackStack(null);
+
+                    dialogFragment.show(ft, "dialog");
+
+                }
+
+                return false;
+            }
+
+
+
+            @Override
+            public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+
+            }
+
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+            }
+        });
+
         return v;
 
     }
@@ -64,5 +120,10 @@ public class CompletedComplaintsStudent extends Fragment {
     public void addComplaintStatusStudent(ObjComplaintStatusStudent myObj)
     {
         objComplaintStatusList.add(myObj);
+    }
+
+    @Override
+    public void onFinishEditDialog(String inputText) {
+
     }
 }
