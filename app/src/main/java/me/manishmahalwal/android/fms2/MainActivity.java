@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return;
         }
 
+        Log.e("AJ", "chutiya");
         progressBar.setVisibility(View.VISIBLE);
         Log.e("CHECKING", "ISREGISTERING");
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -76,8 +77,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 progressBar.setVisibility(View.GONE);
                 if (task.isSuccessful()) {
                     finish();
+                    Log.e("AJ", "admin bahar");
                     Log.e("CHECIKING", email);
                     if(email.equals("admin-fms@iiitd.ac.in")) {
+                        Log.e("AJ", "admin pass");
                         Intent intent = new Intent(MainActivity.this, AdminActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);

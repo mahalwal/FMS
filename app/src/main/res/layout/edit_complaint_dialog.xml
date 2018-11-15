@@ -1,36 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="10dp">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:text="Please enter your username and password" />
-
-
-    <EditText
-        android:id="@+id/inEmail"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Email Address"
-        android:inputType="textEmailAddress" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/inPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Password"
-        android:inputType="textPassword" />
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Complaint ID" />
 
-    <Button
-        android:id="@+id/btnDone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Done" />
+        <TextView
+            android:id="@+id/editText1"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:maxLines="10"
+            android:background="@drawable/rounder_corner"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Description of Complaint" />
+
+        <TextView
+            android:id="@+id/editText2"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounder_corner"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Orientation" />
+
+        <TextView
+            android:id="@+id/editText3"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounder_corner"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="GPS" />
+
+        <TextView
+            android:id="@+id/editText4"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounder_corner"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Proximity" />
+
+        <TextView
+            android:id="@+id/editText5"
+            android:layout_width="350dp"
+            android:layout_height="76dp"
+            android:background="@drawable/rounder_corner"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Get help" />
+
+    </LinearLayout>
 </LinearLayout>
