@@ -28,7 +28,7 @@
         </Spinner>
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/bb"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
@@ -43,6 +43,27 @@
             android:padding="5dp">
 
         </Spinner>
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:padding="5dp"
+            android:text="Roll No:" />
+
+        <EditText
+            android:id="@+id/editText9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/rounder_corner"
+            android:ems="10"
+            android:inputType="textMultiLine"
+            android:padding="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp" />
 
         <TextView
             android:id="@+id/textView3"
@@ -76,23 +97,23 @@
         <EditText
             android:id="@+id/editText2"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:inputType="textMultiLine"
-            android:textAlignment="viewStart"
             android:background="@drawable/rounder_corner"
             android:ems="10"
+            android:gravity="start"
+            android:inputType="textMultiLine"
             android:padding="5dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:gravity="start" />
+            android:textAlignment="viewStart" />
 
         <Button
             android:id="@+id/button_submit"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="100dp"
             android:layout_marginRight="10dp"
             android:padding="10dp"
             android:text="Submit Complaint" />
