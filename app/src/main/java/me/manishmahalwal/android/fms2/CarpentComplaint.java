@@ -1,16 +1,18 @@
 package me.manishmahalwal.android.fms2;
 
 public class CarpentComplaint {
-    public String complaintNum, complaintType, complaintFrom, complaintTo, complaintRoom, ComplaintDescription;
+    public String complaintNum, complaintType, complaintFrom, complaintTo, complaintRoom, ComplaintDescription, locationBuilding;
     public int priority;
-
-    public CarpentComplaint(String complaintNum, String complaintType, String complaintFrom, String complaintTo, String complaintRoom, int priority, String ComplaintDescription) {
+    public String completed;
+    public CarpentComplaint(String complaintNum, String complaintType, String complaintFrom, String complaintTo, String complaintRoom,int priority, String complaintDescription, String completed, String locationBuilding) {
         this.complaintNum = complaintNum;
         this.complaintType = complaintType;
         this.complaintFrom = complaintFrom;
         this.complaintTo = complaintTo;
         this.complaintRoom = complaintRoom;
+        this.ComplaintDescription = complaintDescription;
         this.priority = priority;
-        this.ComplaintDescription = ComplaintDescription;
+        this.completed = completed;
+        this.locationBuilding = locationBuilding;
     }
 }

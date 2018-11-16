@@ -2,57 +2,76 @@ package me.manishmahalwal.android.fms2;
 
 public class ObjComplaintStatusStudent {
 
-    private int id;
-    private String title;
-    private String shortdesc;
-    private double rating;
-    private double price;
+    String desc;
+    String num;
+    String room;
+    String to;
+    String type;
+    String location;
+    int priority;
 
-    public ObjComplaintStatusStudent(int id, String title, String shortdesc, double rating, double price) {
-        this.id = id;
-        this.title = title;
-        this.shortdesc = shortdesc;
-        this.rating = rating;
-        this.price = price;
+    public ObjComplaintStatusStudent(String desc, String num, String room, String to, String type, int priority, String location) {
+        this.desc = desc;
+        this.num = num;
+        this.room = room;
+        this.to = to;
+        this.type = type;
+        this.priority = priority;
+        this.location = location;
     }
 
-    public int getId() {
-        return id;
+    public String getDesc() {
+        return desc;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
-    public String getTitle() {
-        return title;
+    public String getNum() {
+        return num;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setNum(String num) {
+        this.num = num;
     }
 
-    public String getShortdesc() {
-        return shortdesc;
+    public String getRoom() {
+        return room;
     }
 
-    public void setShortdesc(String shortdesc) {
-        this.shortdesc = shortdesc;
+    public void setRoom(String room) {
+        this.room = room;
     }
 
-    public double getRating() {
-        return rating;
+    public String getTo() {
+        return to;
     }
 
-    public void setRating(double rating) {
-        this.rating = rating;
+    public void setTo(String to) {
+        this.to = to;
     }
 
-    public double getPrice() {
-        return price;
+    public String getType() {
+        return type;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+    public void setLocation(String location) {
+        this.location = location;
     }
 }

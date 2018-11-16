@@ -16,6 +16,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.common.internal.service.CommonApi;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -52,7 +53,7 @@ public class RegisterComplaintStudent extends Fragment {
             }
 
         });
-        Spinner spinner2 = (Spinner)view.findViewById(R.id.spinner);
+        final Spinner spinner2 = (Spinner)view.findViewById(R.id.spinner);
         ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(getContext(),R.array.Building,android.R.layout.simple_spinner_item);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner2.setAdapter(adapter2);
@@ -61,7 +62,6 @@ public class RegisterComplaintStudent extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 String selected=parentView.getItemAtPosition(position).toString();
-
             }
 
             @Override
@@ -75,10 +75,13 @@ public class RegisterComplaintStudent extends Fragment {
             public void onClick(View v) {
                 final String RoomNum=E1.getText().toString();
                 final String Description=E2.getText().toString();
-                final String Roll_no=E3.getText().toString();
+                final FirebaseAuth mAuth = FirebaseAuth.getInstance();
+//                final String email = mAuth.getCurrentUser().getEmail();
+                final String email = "mad@t.com";
                 Toast.makeText(getContext(),"read",Toast.LENGTH_LONG).show();
                 String ComplaintType = spinner.getSelectedItem().toString();
                 final FirebaseDatabase database = FirebaseDatabase.getInstance();
+                final String location = spinner2.getSelectedItem().toString();
                 if(ComplaintType.equals("Room Cleaning")){
 
                     final DatabaseReference myRef = database.getReference("CleanID");
@@ -92,10 +95,9 @@ public class RegisterComplaintStudent extends Fragment {
                             myRef.setValue(upd);
                             final DatabaseReference myRef2 = database.getReference("CleanComplaint").child(upd+"");
                             Log.e("RegisterComplaint", upd +"");
-                            CleanComplaint ct = new CleanComplaint(val + "", "Room Cleaning", Roll_no," ", RoomNum, -1, Description);
+                            CleanComplaint ct = new CleanComplaint(val + "", "Room Cleaning", email,"NULL", RoomNum, -1, Description, "false", location);
                             myRef2.setValue(ct);
                         }
-
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -113,13 +115,12 @@ public class RegisterComplaintStudent extends Fragment {
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             val = dataSnapshot.getValue(Integer.class);
                             int upd = val + 1;
-                            final DatabaseReference myRef2 = database.getReference("CleanComplaint").child(upd+"");
+                            final DatabaseReference myRef2 = database.getReference("AcComplaint").child(upd+"");
                             myRef.setValue(upd);
                             Log.e("RegisterComplaint", upd +"");
-                            AcComplaint ct = new AcComplaint(val + "", "AC Servicing", Roll_no," ", RoomNum, -1, Description);
+                            AcComplaint ct = new AcComplaint(val + "", "AC Servicing", email,"NULL", RoomNum, -1, Description, "false", location);
                             myRef2.setValue(ct);
                         }
-
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -136,9 +137,9 @@ public class RegisterComplaintStudent extends Fragment {
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             val = dataSnapshot.getValue(Integer.class);
                             int upd = val + 1;
-                            final DatabaseReference myRef2 = database.getReference("CleanComplaint").child(upd+"");
+                            final DatabaseReference myRef2 = database.getReference("CarpentComplaint").child(upd+"");
                             myRef.setValue(upd);
-                            CarpentComplaint ct = new CarpentComplaint(val + "", "Carpenter", Roll_no," ", RoomNum, -1, Description);
+                            CarpentComplaint ct = new CarpentComplaint(val + "", "Carpenter", email,"NULL", RoomNum, -1, Description, "false", location);
                             Log.e("RegisterComplaint", upd +"");
                             myRef.setValue(ct);
                         }
@@ -160,9 +161,9 @@ public class RegisterComplaintStudent extends Fragment {
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             val = dataSnapshot.getValue(Integer.class);
                             int upd = val + 1;
-                            final DatabaseReference myRef2 = database.getReference("CleanComplaint").child(upd+"");
+                            final DatabaseReference myRef2 = database.getReference("ElectricComplaint").child(upd+"");
                             myRef.setValue(upd);
-                            ElectricComplaint ct = new ElectricComplaint(val + "", "Electric", Roll_no," ", RoomNum, -1, Description);
+                            ElectricComplaint ct = new ElectricComplaint(val + "", "Electric", email,"NULL", RoomNum, -1, Description, "false", location);
                             Log.e("RegisterComplaint", upd +"");
                             myRef2.setValue(ct);
                         }

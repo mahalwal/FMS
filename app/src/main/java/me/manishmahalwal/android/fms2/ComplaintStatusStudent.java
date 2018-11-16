@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -14,8 +15,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import static android.support.constraint.Constraints.TAG;
 
 public class ComplaintStatusStudent extends Fragment implements EditComplaintStatusStudentDialog.DialogListener{
 
@@ -36,86 +47,203 @@ public class ComplaintStatusStudent extends Fragment implements EditComplaintSta
             @Override
             public void onClick(View view) {
 
-                EditComplaintStatusStudentDialog dialogFragment = new EditComplaintStatusStudentDialog();
+//                EditComplaintStatusStudentDialog dialogFragment = new EditComplaintStatusStudentDialog();
+//
+//                Bundle bundle = new Bundle();
+//                bundle.putBoolean("notAlertDialog", true);
+//                dialogFragment.setArguments(bundle);
+//
+                Fragment newFragment = new RegisterComplaintStudent();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
-                Bundle bundle = new Bundle();
-                bundle.putBoolean("notAlertDialog", true);
-                dialogFragment.setArguments(bundle);
+                // Replace whatever is in the fragment_container view with this fragment,
+                // and add the transaction to the back stack if needed
+                transaction.replace(R.id.fragment_container, newFragment);
+                transaction.addToBackStack(null);
 
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                Fragment prev = getFragmentManager().findFragmentByTag("dialog");
-                if (prev != null) {
-                    ft.remove(prev);
-                }
-                ft.addToBackStack(null);
-
-                dialogFragment.show(ft, "dialog");
+                // Commit the transaction
+                transaction.commit();
 
             }
         });
 
         objComplaintStatusList = new ArrayList<>();
-
-
         addComplaintStatusStudent(
                 new ObjComplaintStatusStudent(
-                        1,
-                        "Apple MacBook Air Core i5 5th Gen - (8 GB/128 GB SSD/Mac OS Sierra)",
-                        "13.3 inch, Silver, 1.35 kg",
-                        4.3,
-                        60000));
-
-        addComplaintStatusStudent(
-                new ObjComplaintStatusStudent(
-                        1,
+                        "r3",
+                        "edwq",
                         "Dell Inspiron 7000 Core i5 7th Gen - (8 GB/1 TB HDD/Windows 10 Home)",
                         "14 inch, Gray, 1.659 kg",
-                        4.3,
-                        60000));
+                        "4.3",
+                        1,
+                        "dwe"));
+        final FirebaseAuth mAuth = FirebaseAuth.getInstance();
+//        final String curUserEmail = mAuth.getCurrentUser().getEmail();
+        final String curUserEmail = "mad@t.com";
+        Log.e("ComplaintStatus", curUserEmail);
 
-        addComplaintStatusStudent(
-                new ObjComplaintStatusStudent(
-                        1,
-                        "Microsoft Surface Pro 4 Core m3 6th Gen - (4 GB/128 GB SSD/Windows 10)",
-                        "13.3 inch, Silver, 1.35 kg",
-                        4.3,
-                        60000));
 
-        addComplaintStatusStudent(
-                new ObjComplaintStatusStudent(
-                        1,
-                        "Microsoft Surface Pro 4 Core m3 6th Gen - (4 GB/128 GB SSD/Windows 10)",
-                        "13.3 inch, Silver, 1.35 kg",
-                        4.3,
-                        60000));
-        addComplaintStatusStudent(
-                new ObjComplaintStatusStudent(
-                        1,
-                        "Microsoft Surface Pro 4 Core m3 6th Gen - (4 GB/128 GB SSD/Windows 10)",
-                        "13.3 inch, Silver, 1.35 kg",
-                        4.3,
-                        60000));
-        addComplaintStatusStudent(
-                new ObjComplaintStatusStudent(
-                        1,
-                        "Microsoft Surface Pro 4 Core m3 6th Gen - (4 GB/128 GB SSD/Windows 10)",
-                        "13.3 inch, Silver, 1.35 kg",
-                        4.3,
-                        60000));
-        addComplaintStatusStudent(
-                new ObjComplaintStatusStudent(
-                        1,
-                        "Microsoft Surface Pro 4 Core m3 6th Gen - (4 GB/128 GB SSD/Windows 10)",
-                        "13.3 inch, Silver, 1.35 kg",
-                        4.3,
-                        60000));
-        addComplaintStatusStudent(
-                new ObjComplaintStatusStudent(
-                        1,
-                        "Microsoft Surface Pro 4 Core m3 6th Gen - (4 GB/128 GB SSD/Windows 10)",
-                        "13.3 inch, Silver, 1.35 kg",
-                        4.3,
-                        60000));
+        FirebaseDatabase.getInstance().getReference().child("CleanComplaint")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Iterable<DataSnapshot> contactChildren = dataSnapshot.getChildren();
+                        for (DataSnapshot snapshot : contactChildren) {
+
+                            String num = snapshot.child("complaintNum").getValue().toString();
+                            String to = snapshot.child("complaintTo").getValue().toString();
+                            String room = snapshot.child("complaintRoom").getValue().toString();
+                            String priorit = snapshot.child("priority").getValue().toString();
+                            int priority = Integer.parseInt(priorit);
+                            String description = snapshot.child("ComplaintDescription").getValue().toString();
+                            String completed = snapshot.child("completed").getValue().toString();
+                            String location = snapshot.child("locationBuilding").getValue().toString();
+                            String from = snapshot.child("complaintFrom").getValue().toString();
+                            Log.e("ComplaintStatus", completed + "  " + "clean");
+                            Log.e("ComplaintStatus", curUserEmail + " f->" + from);
+                            if(from.equals(curUserEmail) && completed.equals("false")){
+                                Log.e("ComplaintStatus_is", description );
+                                Log.e("CHUT", "CHAMATA");
+                                objComplaintStatusList.add(
+                                        new ObjComplaintStatusStudent(
+                                                description,
+                                                num,
+                                                room,
+                                                to,
+                                                "CleanComplaint",
+                                                priority,
+                                                location
+                                        )
+                                );
+                            }
+                        }
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.e("AboutStudent", "NOT POSSIBLE");
+//                        Toast.makeText(getApplicationContext(), "Maa Chud Gayi", Toast.LENGTH_LONG).show();
+
+                    }
+                });
+
+        FirebaseDatabase.getInstance().getReference().child("AcComplaint")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            String num = snapshot.child("complaintNum").getValue().toString();
+                            String to = snapshot.child("complaintTo").getValue().toString();
+                            String room = snapshot.child("complaintRoom").getValue().toString();
+                            String priorit = snapshot.child("priority").getValue().toString();
+                            int priority = Integer.parseInt(priorit);
+                            String description = snapshot.child("ComplaintDescription").getValue().toString();
+                            String completed = snapshot.child("completed").getValue().toString();
+                            String location = snapshot.child("locationBuilding").getValue().toString();
+                            String from = snapshot.child("complaintFrom").getValue().toString();
+                            if(from.equals(curUserEmail)&& completed.equals("false")){
+
+                                addComplaintStatusStudent(
+                                        new ObjComplaintStatusStudent(
+                                                description,
+                                                num,
+                                                room,
+                                                to,
+                                                "AcComplaint",
+                                                priority,
+                                                location
+                                        )
+                                );
+                            }
+                        }
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.e("AboutStudent", "NOT POSSIBLE");
+//                        Toast.makeText(getApplicationContext(), "Maa Chud Gayi", Toast.LENGTH_LONG).show();
+
+                    }
+                });
+
+        FirebaseDatabase.getInstance().getReference().child("CarpentComplaint")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            String num = snapshot.child("complaintNum").getValue().toString();
+                            String to = snapshot.child("complaintTo").getValue().toString();
+                            String room = snapshot.child("complaintRoom").getValue().toString();
+                            String priorit = snapshot.child("priority").getValue().toString();
+                            int priority = Integer.parseInt(priorit);
+                            String description = snapshot.child("ComplaintDescription").getValue().toString();
+                            String completed = snapshot.child("completed").getValue().toString();
+                            String location = snapshot.child("locationBuilding").getValue().toString();
+                            String from = snapshot.child("complaintFrom").getValue().toString();
+                            if(from.equals(curUserEmail) == true && completed.equals("false")){
+
+                                addComplaintStatusStudent(
+                                        new ObjComplaintStatusStudent(
+                                                description,
+                                                num,
+                                                room,
+                                                to,
+                                                "CarpentComplaint",
+                                                priority,
+                                                location
+                                        )
+                                );
+                            }
+                        }
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.e("AboutStudent", "NOT POSSIBLE");
+//                        Toast.makeText(getApplicationContext(), "Maa Chud Gayi", Toast.LENGTH_LONG).show();
+
+                    }
+                });
+
+        FirebaseDatabase.getInstance().getReference().child("ElectricComplaint")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            String num = snapshot.child("complaintNum").getValue().toString();
+                            String to = snapshot.child("complaintTo").getValue().toString();
+                            String room = snapshot.child("complaintRoom").getValue().toString();
+                            String priorit = snapshot.child("priority").getValue().toString();
+                            int priority = Integer.parseInt(priorit);
+                            String description = snapshot.child("ComplaintDescription").getValue().toString();
+                            String completed = snapshot.child("completed").getValue().toString();
+                            String location = snapshot.child("locationBuilding").getValue().toString();
+                            String from = snapshot.child("complaintFrom").getValue().toString();
+                            if(from.equals(curUserEmail) == true && completed.equals("false")) {
+
+                                Log.e("CHUT", "CHAMATA");
+                                addComplaintStatusStudent(
+                                        new ObjComplaintStatusStudent(
+                                                description,
+                                                num,
+                                                room,
+                                                to,
+                                                "ElectricComplaint",
+                                                priority,
+                                                location
+                                        )
+                                );
+                            }
+                        }
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.e("AboutStudent", "NOT POSSIBLE");
+
+                    }
+                });
+
+
 
         //creating recyclerview adapter
         ObjComplaintStatusStudentAdapter adapter = new ObjComplaintStatusStudentAdapter(getActivity(), objComplaintStatusList);
@@ -142,9 +270,9 @@ public class ComplaintStatusStudent extends Fragment implements EditComplaintSta
         });
 
         /*
-        * add onclicklistener for each recyclerview item
-        *
-        * */
+         * add onclicklistener for each recyclerview item
+         *
+         * */
 
         recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
             GestureDetector gestureDetector = new GestureDetector(getActivity(), new GestureDetector.SimpleOnGestureListener() {

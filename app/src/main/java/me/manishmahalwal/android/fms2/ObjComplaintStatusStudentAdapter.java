@@ -39,10 +39,10 @@ public class ObjComplaintStatusStudentAdapter extends RecyclerView.Adapter<ObjCo
         ObjComplaintStatusStudent product = productList.get(position);
 
         //binding the data with the viewholder views
-        holder.textViewTitle.setText(product.getTitle());
-        holder.textViewShortDesc.setText(product.getShortdesc());
-        holder.textViewRating.setText(String.valueOf(product.getRating()));
-        holder.textViewPrice.setText(String.valueOf(product.getPrice()));
+        holder.textViewTitle.setText(product.getNum());
+        holder.textViewShortDesc.setText(product.getType());
+        holder.textViewRating.setText(String.valueOf(product.getPriority()));
+        holder.textViewPrice.setText(product.getLocation());
 
 //        holder.imageView.setImageDrawable(mCtx.getResources().getDrawable(product.getImage()));
 
@@ -70,3 +70,20 @@ public class ObjComplaintStatusStudentAdapter extends RecyclerView.Adapter<ObjCo
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
