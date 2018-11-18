@@ -42,7 +42,7 @@ public class ObjComplaintStatusStudentAdapter extends RecyclerView.Adapter<ObjCo
         holder.textViewTitle.setText(product.getTitle());
         holder.textViewShortDesc.setText(product.getShortdesc());
         holder.textViewRating.setText(String.valueOf(product.getRating()));
-        holder.textViewPrice.setText(String.valueOf(product.getPrice()));
+        holder.worker.setText(String.valueOf(product.getPrice()));
 
 //        holder.imageView.setImageDrawable(mCtx.getResources().getDrawable(product.getImage()));
 
@@ -57,7 +57,7 @@ public class ObjComplaintStatusStudentAdapter extends RecyclerView.Adapter<ObjCo
 
     class ProductViewHolder extends RecyclerView.ViewHolder {
 
-        TextView textViewTitle, textViewShortDesc, textViewRating, textViewPrice;
+        TextView textViewTitle, textViewShortDesc, textViewRating, worker,worker_rating;
 //        ImageView imageView;
 
         public ProductViewHolder(View itemView) {
@@ -66,7 +66,8 @@ public class ObjComplaintStatusStudentAdapter extends RecyclerView.Adapter<ObjCo
             textViewTitle = itemView.findViewById(R.id.textViewTitle);
             textViewShortDesc = itemView.findViewById(R.id.textViewShortDesc);
             textViewRating = itemView.findViewById(R.id.textViewRating);
-            textViewPrice = itemView.findViewById(R.id.textViewPrice);
+            worker = itemView.findViewById(R.id.worker);
+            worker_rating=itemView.findViewById(R.id.worker_rating);
         }
     }
 }

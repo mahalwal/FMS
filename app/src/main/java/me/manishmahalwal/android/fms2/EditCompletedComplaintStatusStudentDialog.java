@@ -58,15 +58,11 @@ public class EditCompletedComplaintStatusStudentDialog extends DialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         getDialog().setTitle("Complaint Feedback");
         return inflater.inflate(R.layout.edit_completed_complaint_dialog, container, false);
-
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
-
 
         Button btnDone = view.findViewById(R.id.btnDone);
         btnDone.setOnClickListener(new View.OnClickListener() {
@@ -137,6 +133,4 @@ public class EditCompletedComplaintStatusStudentDialog extends DialogFragment {
     public interface DialogListener {
         void onFinishEditDialog(String inputText);
     }
-
-
 }

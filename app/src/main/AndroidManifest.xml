@@ -10,7 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Student">
+        <activity android:name=".AdminActivity">
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,8 +21,8 @@
         <activity android:name=".MainActivity"></activity>
         <activity android:name=".SignUpActivity" />
         <activity
-            android:name=".AdminActivity"
-            android:label="@string/title_activity_admin"
+            android:name=".Student"
+            android:label="@string/title_activity_student"
             android:theme="@style/AppTheme"></activity>
     </application>
 
