@@ -7,12 +7,19 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +33,7 @@ public class ComplaintStatusStudent extends Fragment implements EditComplaintSta
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 
         View v = inflater.inflate(R.layout.fragment_cs, container, false);
-        RecyclerView recyclerView = v.findViewById(R.id.rv);
+        final RecyclerView recyclerView = v.findViewById(R.id.rv);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -57,73 +64,171 @@ public class ComplaintStatusStudent extends Fragment implements EditComplaintSta
         });
 
         objComplaintStatusList = new ArrayList<>();
+//        addComplaintStatusStudent(
+//                new ObjComplaintStatusStudent(
+//                        "r3",
+//                        "edwq",
+//                        "Dell Inspiron 7000 Core i5 7th Gen - (8 GB/1 TB HDD/Windows 10 Home)",
+//                        "14 inch, Gray, 1.659 kg",
+//                        "4.3",
+//                        1,
+//                        "dwe"));
+        final FirebaseAuth mAuth = FirebaseAuth.getInstance();
+//        final String curUserEmail = mAuth.getCurrentUser().getEmail();
+        final String curUserEmail = mAuth.getCurrentUser().getEmail();
+        Log.d("CheckC", curUserEmail);
 
 
-        addComplaintStatusStudent(
-                new ObjComplaintStatusStudent(
-                        1,
-                        "Apple MacBook Air Core i5 5th Gen - (8 GB/128 GB SSD/Mac OS Sierra)",
-                        "13.3 inch, Silver, 1.35 kg",
-                        4.3,
-                        60000));
+        FirebaseDatabase.getInstance().getReference("CleanComplaint")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot)
+                    {
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren())
+                        {
+                            Log.d("Check2.1","iterate");
+                            CleanComplaint temp=snapshot.getValue(CleanComplaint.class);
+                            if(temp.complaintFrom.equals(curUserEmail) && temp.completed.equals("false"))
+                            {
+                                objComplaintStatusList.add(
+                                        new ObjComplaintStatusStudent(
+                                                temp.ComplaintDescription,
+                                                temp.complaintNum,
+                                                temp.complaintRoom,
+                                                temp.complaintTo,
+                                                "Room Cleaning",
+                                                temp.priority,
+                                                temp.locationBuilding
+                                        )
+                                );
+                                ObjComplaintStatusStudentAdapter adapter = new ObjComplaintStatusStudentAdapter(getActivity(), objComplaintStatusList);
+                                recyclerView.setAdapter(adapter);
+                            }
 
-        addComplaintStatusStudent(
-                new ObjComplaintStatusStudent(
-                        1,
-                        "Dell Inspiron 7000 Core i5 7th Gen - (8 GB/1 TB HDD/Windows 10 Home)",
-                        "14 inch, Gray, 1.659 kg",
-                        4.3,
-                        60000));
+                        }
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.e("AboutStudent", "NOT POSSIBLE");
 
-        addComplaintStatusStudent(
-                new ObjComplaintStatusStudent(
-                        1,
-                        "Microsoft Surface Pro 4 Core m3 6th Gen - (4 GB/128 GB SSD/Windows 10)",
-                        "13.3 inch, Silver, 1.35 kg",
-                        4.3,
-                        60000));
+                    }
+                });
 
-        addComplaintStatusStudent(
-                new ObjComplaintStatusStudent(
-                        1,
-                        "Microsoft Surface Pro 4 Core m3 6th Gen - (4 GB/128 GB SSD/Windows 10)",
-                        "13.3 inch, Silver, 1.35 kg",
-                        4.3,
-                        60000));
-        addComplaintStatusStudent(
-                new ObjComplaintStatusStudent(
-                        1,
-                        "Microsoft Surface Pro 4 Core m3 6th Gen - (4 GB/128 GB SSD/Windows 10)",
-                        "13.3 inch, Silver, 1.35 kg",
-                        4.3,
-                        60000));
-        addComplaintStatusStudent(
-                new ObjComplaintStatusStudent(
-                        1,
-                        "Microsoft Surface Pro 4 Core m3 6th Gen - (4 GB/128 GB SSD/Windows 10)",
-                        "13.3 inch, Silver, 1.35 kg",
-                        4.3,
-                        60000));
-        addComplaintStatusStudent(
-                new ObjComplaintStatusStudent(
-                        1,
-                        "Microsoft Surface Pro 4 Core m3 6th Gen - (4 GB/128 GB SSD/Windows 10)",
-                        "13.3 inch, Silver, 1.35 kg",
-                        4.3,
-                        60000));
-        addComplaintStatusStudent(
-                new ObjComplaintStatusStudent(
-                        1,
-                        "Microsoft Surface Pro 4 Core m3 6th Gen - (4 GB/128 GB SSD/Windows 10)",
-                        "13.3 inch, Silver, 1.35 kg",
-                        4.3,
-                        60000));
+        FirebaseDatabase.getInstance().getReference().child("AcComplaint")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot)
+                    {
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren())
+                        {
+                            Log.d("Check2.2","iterate");
+                            AcComplaint temp=snapshot.getValue(AcComplaint.class);
+                            if(temp.complaintFrom.equals(curUserEmail) && temp.completed.equals("false"))
+                            {
+                                objComplaintStatusList.add(
+                                        new ObjComplaintStatusStudent(
+                                                temp.ComplaintDescription,
+                                                temp.complaintNum,
+                                                temp.complaintRoom,
+                                                temp.complaintTo,
+                                                "AC Servicing",
+                                                temp.priority,
+                                                temp.locationBuilding
+                                        )
+                                );
+                                ObjComplaintStatusStudentAdapter adapter = new ObjComplaintStatusStudentAdapter(getActivity(), objComplaintStatusList);
+                                recyclerView.setAdapter(adapter);
+                            }
+
+                        }
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.e("AboutStudent", "NOT POSSIBLE");
+//                        Toast.makeText(getApplicationContext(), "Maa Chud Gayi", Toast.LENGTH_LONG).show();
+
+                    }
+                });
+
+        FirebaseDatabase.getInstance().getReference().child("CarpentComplaint")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot)
+                    {
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren())
+                        {
+                            Log.d("Check2.2","iterate");
+                            CarpentComplaint temp=snapshot.getValue(CarpentComplaint.class);
+                            if(temp.complaintFrom.equals(curUserEmail) && temp.completed.equals("false"))
+                            {
+                                objComplaintStatusList.add(
+                                        new ObjComplaintStatusStudent(
+                                                temp.ComplaintDescription,
+                                                temp.complaintNum,
+                                                temp.complaintRoom,
+                                                temp.complaintTo,
+                                                "Carpenter",
+                                                temp.priority,
+                                                temp.locationBuilding
+                                        )
+                                );
+                                ObjComplaintStatusStudentAdapter adapter = new ObjComplaintStatusStudentAdapter(getActivity(), objComplaintStatusList);
+                                recyclerView.setAdapter(adapter);
+                            }
+
+                        }
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.e("AboutStudent", "NOT POSSIBLE");
+//                        Toast.makeText(getApplicationContext(), "Maa Chud Gayi", Toast.LENGTH_LONG).show();
+
+                    }
+                });
+
+        FirebaseDatabase.getInstance().getReference().child("ElectricComplaint")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot)
+                    {
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren())
+                        {
+                            Log.d("Check2.2","iterate");
+                            ElectricComplaint temp=snapshot.getValue(ElectricComplaint.class);
+                            if(temp.complaintFrom.equals(curUserEmail) && temp.completed.equals("false"))
+                            {
+                                objComplaintStatusList.add(
+                                        new ObjComplaintStatusStudent(
+                                                temp.ComplaintDescription,
+                                                temp.complaintNum,
+                                                temp.complaintRoom,
+                                                temp.complaintTo,
+                                                "Electric",
+                                                temp.priority,
+                                                temp.locationBuilding
+                                        )
+                                );
+                                ObjComplaintStatusStudentAdapter adapter = new ObjComplaintStatusStudentAdapter(getActivity(), objComplaintStatusList);
+                                recyclerView.setAdapter(adapter);
+                            }
+
+                        }
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.e("AboutStudent", "NOT POSSIBLE");
+
+                    }
+                });
+
+
 
         //creating recyclerview adapter
-        ObjComplaintStatusStudentAdapter adapter = new ObjComplaintStatusStudentAdapter(getActivity(), objComplaintStatusList);
-
-        //setting adapter to recyclerview
-        recyclerView.setAdapter(adapter);
+//        Log.d("Check5",objComplaintStatusList.size()+"");
+//        ObjComplaintStatusStudentAdapter adapter = new ObjComplaintStatusStudentAdapter(getActivity(), objComplaintStatusList);
+//
+//        //setting adapter to recyclerview
+//        recyclerView.setAdapter(adapter);
 
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener(){
@@ -144,9 +249,9 @@ public class ComplaintStatusStudent extends Fragment implements EditComplaintSta
         });
 
         /*
-        * add onclicklistener for each recyclerview item
-        *
-        * */
+         * add onclicklistener for each recyclerview item
+         *
+         * */
 
         recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
             GestureDetector gestureDetector = new GestureDetector(getActivity(), new GestureDetector.SimpleOnGestureListener() {

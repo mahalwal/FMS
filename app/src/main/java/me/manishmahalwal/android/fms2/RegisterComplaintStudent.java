@@ -88,7 +88,7 @@ public class RegisterComplaintStudent extends Fragment {
                     final DatabaseReference myRef = database.getReference("CleanID");
                     int upd;
                     myRef.addListenerForSingleValueEvent(new ValueEventListener(){
-                    int val;
+                        int val;
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             val = dataSnapshot.getValue(Integer.class);

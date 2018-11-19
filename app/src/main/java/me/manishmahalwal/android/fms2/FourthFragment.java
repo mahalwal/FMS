@@ -59,63 +59,66 @@ public class FourthFragment extends Fragment implements WorkerDialog.DialogListe
 
         addComplaintStatusStudent(
                 new ObjComplaintStatusStudent(
+                        "dummy",
+                        "boy",
+                        "fall",
+                        "in love",
+                        "he",
                         1,
-                        "Worker",
-                        "13.3 inch, Silver, 1.35 kg",
-                        4.3,
-                        60000));
+                        "stoopid"
+                ));
 
-        addComplaintStatusStudent(
-                new ObjComplaintStatusStudent(
-                        1,
-                        "Dell Inspiron 7000 Core i5 7th Gen - (8 GB/1 TB HDD/Windows 10 Home)",
-                        "14 inch, Gray, 1.659 kg",
-                        4.3,
-                        60000));
-
-        addComplaintStatusStudent(
-                new ObjComplaintStatusStudent(
-                        1,
-                        "Microsoft Surface Pro 4 Core m3 6th Gen - (4 GB/128 GB SSD/Windows 10)",
-                        "13.3 inch, Silver, 1.35 kg",
-                        4.3,
-                        60000));
-
-        addComplaintStatusStudent(
-                new ObjComplaintStatusStudent(
-                        1,
-                        "Microsoft Surface Pro 4 Core m3 6th Gen - (4 GB/128 GB SSD/Windows 10)",
-                        "13.3 inch, Silver, 1.35 kg",
-                        4.3,
-                        60000));
-        addComplaintStatusStudent(
-                new ObjComplaintStatusStudent(
-                        1,
-                        "Microsoft Surface Pro 4 Core m3 6th Gen - (4 GB/128 GB SSD/Windows 10)",
-                        "13.3 inch, Silver, 1.35 kg",
-                        4.3,
-                        60000));
-        addComplaintStatusStudent(
-                new ObjComplaintStatusStudent(
-                        1,
-                        "Microsoft Surface Pro 4 Core m3 6th Gen - (4 GB/128 GB SSD/Windows 10)",
-                        "13.3 inch, Silver, 1.35 kg",
-                        4.3,
-                        60000));
-        addComplaintStatusStudent(
-                new ObjComplaintStatusStudent(
-                        1,
-                        "Microsoft Surface Pro 4 Core m3 6th Gen - (4 GB/128 GB SSD/Windows 10)",
-                        "13.3 inch, Silver, 1.35 kg",
-                        4.3,
-                        60000));
-        addComplaintStatusStudent(
-                new ObjComplaintStatusStudent(
-                        1,
-                        "Microsoft Surface Pro 4 Core m3 6th Gen - (4 GB/128 GB SSD/Windows 10)",
-                        "13.3 inch, Silver, 1.35 kg",
-                        4.3,
-                        60000));
+//        addComplaintStatusStudent(
+//                new ObjComplaintStatusStudent(
+//                        1,
+//                        "Dell Inspiron 7000 Core i5 7th Gen - (8 GB/1 TB HDD/Windows 10 Home)",
+//                        "14 inch, Gray, 1.659 kg",
+//                        4.3,
+//                        60000));
+//
+//        addComplaintStatusStudent(
+//                new ObjComplaintStatusStudent(
+//                        1,
+//                        "Microsoft Surface Pro 4 Core m3 6th Gen - (4 GB/128 GB SSD/Windows 10)",
+//                        "13.3 inch, Silver, 1.35 kg",
+//                        4.3,
+//                        60000));
+//
+//        addComplaintStatusStudent(
+//                new ObjComplaintStatusStudent(
+//                        1,
+//                        "Microsoft Surface Pro 4 Core m3 6th Gen - (4 GB/128 GB SSD/Windows 10)",
+//                        "13.3 inch, Silver, 1.35 kg",
+//                        4.3,
+//                        60000));
+//        addComplaintStatusStudent(
+//                new ObjComplaintStatusStudent(
+//                        1,
+//                        "Microsoft Surface Pro 4 Core m3 6th Gen - (4 GB/128 GB SSD/Windows 10)",
+//                        "13.3 inch, Silver, 1.35 kg",
+//                        4.3,
+//                        60000));
+//        addComplaintStatusStudent(
+//                new ObjComplaintStatusStudent(
+//                        1,
+//                        "Microsoft Surface Pro 4 Core m3 6th Gen - (4 GB/128 GB SSD/Windows 10)",
+//                        "13.3 inch, Silver, 1.35 kg",
+//                        4.3,
+//                        60000));
+//        addComplaintStatusStudent(
+//                new ObjComplaintStatusStudent(
+//                        1,
+//                        "Microsoft Surface Pro 4 Core m3 6th Gen - (4 GB/128 GB SSD/Windows 10)",
+//                        "13.3 inch, Silver, 1.35 kg",
+//                        4.3,
+//                        60000));
+//        addComplaintStatusStudent(
+//                new ObjComplaintStatusStudent(
+//                        1,
+//                        "Microsoft Surface Pro 4 Core m3 6th Gen - (4 GB/128 GB SSD/Windows 10)",
+//                        "13.3 inch, Silver, 1.35 kg",
+//                        4.3,
+//                        60000));
 
         //creating recyclerview adapter
         ObjComplaintStatusStudentAdapter adapter = new ObjComplaintStatusStudentAdapter(getActivity(), objComplaintStatusList);

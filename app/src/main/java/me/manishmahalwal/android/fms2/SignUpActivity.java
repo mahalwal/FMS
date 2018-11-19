@@ -65,7 +65,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
         User user = new User(name, email, password, phoneNo, rollNo, gender);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("ListOfUser").child(user.rollNo);
+        DatabaseReference myRef = database.getReference("ListOfUser").child(user.email);
 
         myRef.setValue(user);
         Log.e("SignUpActivity", "newUserRegister");

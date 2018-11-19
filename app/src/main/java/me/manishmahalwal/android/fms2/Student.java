@@ -32,11 +32,9 @@ public class Student extends AppCompatActivity implements NavigationView.OnNavig
         ImageView img = (ImageView)headerview.findViewById(R.id.IV);
         img.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new ab()).commit();
                 Toast.makeText(getApplicationContext(),"ytr", Toast.LENGTH_LONG).show();
             }
-
         });*/
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, draw, tb, R.string.ndopen, R.string.ndclose);
@@ -45,8 +43,8 @@ public class Student extends AppCompatActivity implements NavigationView.OnNavig
         toggle.syncState();
         if (savedInstanceState == null)
         {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ComplaintStatusStudent()).commit();
-            nv.setCheckedItem(R.id.CS);
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new RegisterComplaintStudent()).commit();
+            nv.setCheckedItem(R.id.C);
         }
 
 
@@ -85,7 +83,7 @@ public class Student extends AppCompatActivity implements NavigationView.OnNavig
         else if (item.getItemId()==R.id.AB)
         {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new AboutStudent()).commit();
-          //  Toast.makeText(getApplicationContext(),"ytr", Toast.LENGTH_LONG).show();
+            //  Toast.makeText(getApplicationContext(),"ytr", Toast.LENGTH_LONG).show();
 
         }
 

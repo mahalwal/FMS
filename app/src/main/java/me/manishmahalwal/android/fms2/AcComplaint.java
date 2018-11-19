@@ -1,10 +1,10 @@
 package me.manishmahalwal.android.fms2;
 
 public class AcComplaint {
-    public String complaintNum, complaintType, complaintFrom, complaintTo, complaintRoom, ComplaintDescription;
+    public String complaintNum, complaintType, complaintFrom, complaintTo, complaintRoom, ComplaintDescription, locationBuilding;
     public int priority;
-
-    public AcComplaint(String complaintNum, String complaintType, String complaintFrom, String complaintTo, String complaintRoom,int priority, String complaintDescription) {
+    String completed;
+    public AcComplaint(String complaintNum, String complaintType, String complaintFrom, String complaintTo, String complaintRoom,int priority, String complaintDescription, String completed, String locationBuilding) {
         this.complaintNum = complaintNum;
         this.complaintType = complaintType;
         this.complaintFrom = complaintFrom;
@@ -12,6 +12,11 @@ public class AcComplaint {
         this.complaintRoom = complaintRoom;
         this.ComplaintDescription = complaintDescription;
         this.priority = priority;
+        this.completed = completed;
+        this.locationBuilding = locationBuilding;
+    }
+    public AcComplaint(){
+
     }
 
 }
