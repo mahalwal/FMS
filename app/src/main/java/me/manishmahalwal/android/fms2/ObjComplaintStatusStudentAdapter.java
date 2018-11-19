@@ -2,11 +2,12 @@ package me.manishmahalwal.android.fms2;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
+
 import java.util.List;
 
 
@@ -41,14 +42,18 @@ public class ObjComplaintStatusStudentAdapter extends RecyclerView.Adapter<ObjCo
         //binding the data with the viewholder views
         holder.textViewTitle.setText(product.getNum());
         holder.textViewShortDesc.setText(product.getType());
-        holder.textViewRating.setText(String.valueOf(product.getPriority()));
+        Log.e("AJ", (product.getPriority()==-1)+" "+ product.getPriority());
+        if(product.getPriority()==-1) {
+
+            holder.textViewRating.setText("Resolved");
+        } else
+            holder.textViewRating.setText(String.valueOf(product.getPriority()));
+//        holder.textViewRating.setText(String.valueOf(product.getPriority()));
         holder.textViewPrice.setText(product.getLocation());
 
 //        holder.imageView.setImageDrawable(mCtx.getResources().getDrawable(product.getImage()));
 
     }
-
-
     @Override
     public int getItemCount() {
         return productList.size();

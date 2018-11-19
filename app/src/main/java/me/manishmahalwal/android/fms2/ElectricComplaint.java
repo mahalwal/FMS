@@ -16,4 +16,7 @@ public class ElectricComplaint {
         this.completed = completed;
         this.locationBuilding = locationBuilding;
     }
+    public ElectricComplaint(){
+
+    }
 }

@@ -15,4 +15,7 @@ public class CleanComplaint {
         this.completed = completed;
         this.locationBuilding = locationBuilding;
     }
+    public CleanComplaint(){
+
+    }
 }

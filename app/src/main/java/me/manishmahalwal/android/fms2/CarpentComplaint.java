@@ -15,4 +15,7 @@ public class CarpentComplaint {
         this.completed = completed;
         this.locationBuilding = locationBuilding;
     }
+    public CarpentComplaint(){
+
+    }
 }

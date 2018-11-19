@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -27,45 +26,40 @@ public class CompletedComplaintsStudent extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 
         View v= inflater.inflate(R.layout.fragment_cc, container, false);
-        RecyclerView recyclerView = (RecyclerView)v.findViewById(R.id.rv2);
+        final RecyclerView recyclerView = (RecyclerView)v.findViewById(R.id.rv2);
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         objComplaintStatusList = new ArrayList<>();
         final FirebaseAuth mAuth = FirebaseAuth.getInstance();
-//        final String curUserEmail = mAuth.getCurrentUser().getEmail();
-        final String curUserEmail = "mad@t.com";
+        final String curUserEmail = mAuth.getCurrentUser().getEmail();
+//        final String curUserEmail = "mad@t.com";
         FirebaseDatabase.getInstance().getReference().child("CleanComplaint")
-                .addListenerForSingleValueEvent(new ValueEventListener() {
+                .addValueEventListener(new ValueEventListener() {
                     @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-
-                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                            String num = snapshot.child("complaintNum").getValue().toString();
-                            String to = snapshot.child("complaintTo").getValue().toString();
-                            String room = snapshot.child("complaintRoom").getValue().toString();
-                            String priorit = snapshot.child("priority").getValue().toString();
-                            int priority = Integer.parseInt(priorit);
-                            String description = snapshot.child("ComplaintDescription").getValue().toString();
-                            String completed = snapshot.child("completed").getValue().toString();
-                            String location = snapshot.child("locationBuilding").getValue().toString();
-                            String from = snapshot.child("complaintFrom").getValue().toString();
-                            if(from.equals(curUserEmail) == true && completed.equals("true")){
-
-                                addComplaintStatusStudent(
+                    public void onDataChange(DataSnapshot dataSnapshot)
+                    {
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren())
+                        {
+                            CleanComplaint temp=snapshot.getValue(CleanComplaint.class);
+                            if(temp.complaintFrom.equals(curUserEmail) && temp.completed.equals("true"))
+                            {
+                                objComplaintStatusList.add(
                                         new ObjComplaintStatusStudent(
-                                                description,
-                                                num,
-                                                room,
-                                                to,
-                                                "CleanComplaint",
-                                                priority,
-                                                location
+                                                temp.ComplaintDescription,
+                                                temp.complaintNum,
+                                                temp.complaintRoom,
+                                                temp.complaintTo,
+                                                "Room Cleaning",
+                                                -1,
+                                                temp.locationBuilding
                                         )
                                 );
-                                break;
+                                ObjComplaintStatusStudentAdapter adapter = new ObjComplaintStatusStudentAdapter(getActivity(), objComplaintStatusList);
+                                recyclerView.setAdapter(adapter);
                             }
+
                         }
                     }
                     @Override
@@ -77,35 +71,30 @@ public class CompletedComplaintsStudent extends Fragment {
                 });
 
         FirebaseDatabase.getInstance().getReference().child("AcComplaint")
-                .addListenerForSingleValueEvent(new ValueEventListener() {
+                .addValueEventListener(new ValueEventListener() {
                     @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-
-                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                            String num = snapshot.child("complaintNum").getValue().toString();
-                            String to = snapshot.child("complaintTo").getValue().toString();
-                            String room = snapshot.child("complaintRoom").getValue().toString();
-                            String priorit = snapshot.child("priority").getValue().toString();
-                            int priority = Integer.parseInt(priorit);
-                            String description = snapshot.child("ComplaintDescription").getValue().toString();
-                            String completed = snapshot.child("completed").getValue().toString();
-                            String location = snapshot.child("locationBuilding").getValue().toString();
-                            String from = snapshot.child("complaintFrom").getValue().toString();
-                            if(from.equals(curUserEmail) == true && completed.equals("true")){
-
-                                addComplaintStatusStudent(
+                    public void onDataChange(DataSnapshot dataSnapshot)
+                    {
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren())
+                        {
+                            AcComplaint temp=snapshot.getValue(AcComplaint.class);
+                            if(temp.complaintFrom.equals(curUserEmail) && temp.completed.equals("true"))
+                            {
+                                objComplaintStatusList.add(
                                         new ObjComplaintStatusStudent(
-                                                description,
-                                                num,
-                                                room,
-                                                to,
-                                                "AcComplaint",
-                                                priority,
-                                                location
+                                                temp.ComplaintDescription,
+                                                temp.complaintNum,
+                                                temp.complaintRoom,
+                                                temp.complaintTo,
+                                                "AC Servicing",
+                                                -1,
+                                                temp.locationBuilding
                                         )
                                 );
-                                break;
+                                ObjComplaintStatusStudentAdapter adapter = new ObjComplaintStatusStudentAdapter(getActivity(), objComplaintStatusList);
+                                recyclerView.setAdapter(adapter);
                             }
+
                         }
                     }
                     @Override
@@ -119,33 +108,28 @@ public class CompletedComplaintsStudent extends Fragment {
         FirebaseDatabase.getInstance().getReference().child("CarpentComplaint")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-
-                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                            String num = snapshot.child("complaintNum").getValue().toString();
-                            String to = snapshot.child("complaintTo").getValue().toString();
-                            String room = snapshot.child("complaintRoom").getValue().toString();
-                            String priorit = snapshot.child("priority").getValue().toString();
-                            int priority = Integer.parseInt(priorit);
-                            String description = snapshot.child("ComplaintDescription").getValue().toString();
-                            String completed = snapshot.child("completed").getValue().toString();
-                            String location = snapshot.child("locationBuilding").getValue().toString();
-                            String from = snapshot.child("complaintFrom").getValue().toString();
-                            if(from.equals(curUserEmail) == true && completed.equals("true")){
-
-                                addComplaintStatusStudent(
+                    public void onDataChange(DataSnapshot dataSnapshot)
+                    {
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren())
+                        {
+                            CarpentComplaint temp=snapshot.getValue(CarpentComplaint.class);
+                            if(temp.complaintFrom.equals(curUserEmail) && temp.completed.equals("true"))
+                            {
+                                objComplaintStatusList.add(
                                         new ObjComplaintStatusStudent(
-                                                description,
-                                                num,
-                                                room,
-                                                to,
-                                                "CarpentComplaint",
-                                                priority,
-                                                location
+                                                temp.ComplaintDescription,
+                                                temp.complaintNum,
+                                                temp.complaintRoom,
+                                                temp.complaintTo,
+                                                "Carpenter",
+                                                -1,
+                                                temp.locationBuilding
                                         )
                                 );
-                                break;
+                                ObjComplaintStatusStudentAdapter adapter = new ObjComplaintStatusStudentAdapter(getActivity(), objComplaintStatusList);
+                                recyclerView.setAdapter(adapter);
                             }
+
                         }
                     }
                     @Override
@@ -157,35 +141,30 @@ public class CompletedComplaintsStudent extends Fragment {
                 });
 
         FirebaseDatabase.getInstance().getReference().child("ElectricComplaint")
-                .addListenerForSingleValueEvent(new ValueEventListener() {
+                .addValueEventListener(new ValueEventListener() {
                     @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-
-                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                            String num = snapshot.child("complaintNum").getValue().toString();
-                            String to = snapshot.child("complaintTo").getValue().toString();
-                            String room = snapshot.child("complaintRoom").getValue().toString();
-                            String priorit = snapshot.child("priority").getValue().toString();
-                            int priority = Integer.parseInt(priorit);
-                            String description = snapshot.child("ComplaintDescription").getValue().toString();
-                            String completed = snapshot.child("completed").getValue().toString();
-                            String location = snapshot.child("locationBuilding").getValue().toString();
-                            String from = snapshot.child("complaintFrom").getValue().toString();
-                            if(from.equals(curUserEmail) == true && completed.equals("true")){
-
-                                addComplaintStatusStudent(
+                    public void onDataChange(DataSnapshot dataSnapshot)
+                    {
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren())
+                        {
+                            ElectricComplaint temp=snapshot.getValue(ElectricComplaint.class);
+                            if(temp.complaintFrom.equals(curUserEmail) && temp.completed.equals("true"))
+                            {
+                                objComplaintStatusList.add(
                                         new ObjComplaintStatusStudent(
-                                                description,
-                                                num,
-                                                room,
-                                                to,
-                                                "ElectricComplaint",
-                                                priority,
-                                                location
+                                                temp.ComplaintDescription,
+                                                temp.complaintNum,
+                                                temp.complaintRoom,
+                                                temp.complaintTo,
+                                                "Electric",
+                                                -1,
+                                                temp.locationBuilding
                                         )
                                 );
-                                break;
+                                ObjComplaintStatusStudentAdapter adapter = new ObjComplaintStatusStudentAdapter(getActivity(), objComplaintStatusList);
+                                recyclerView.setAdapter(adapter);
                             }
+
                         }
                     }
                     @Override
@@ -195,14 +174,7 @@ public class CompletedComplaintsStudent extends Fragment {
 
                     }
                 });
-
-
-
-        //creating recyclerview adapter
-        ObjComplaintStatusStudentAdapter adapter = new ObjComplaintStatusStudentAdapter(getActivity(), objComplaintStatusList);
-
-        //setting adapter to recyclerview
-        recyclerView.setAdapter(adapter);
+        //Code Missing
 
         return v;
 

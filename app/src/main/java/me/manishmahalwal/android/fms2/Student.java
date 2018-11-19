@@ -45,8 +45,8 @@ public class Student extends AppCompatActivity implements NavigationView.OnNavig
         toggle.syncState();
         if (savedInstanceState == null)
         {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ComplaintStatusStudent()).commit();
-            nv.setCheckedItem(R.id.CS);
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new RegisterComplaintStudent()).commit();
+            nv.setCheckedItem(R.id.C);
         }
 
 

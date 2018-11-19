@@ -15,5 +15,8 @@ public class AcComplaint {
         this.completed = completed;
         this.locationBuilding = locationBuilding;
     }
+    public AcComplaint(){
+
+    }
 
 }
